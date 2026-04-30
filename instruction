@@ -1,0 +1,5 @@
+mCares Changes
+- Once select mCares Item, give provision to minimise div and give provision to expand again if wish to change item
+- For Action plan - after click of Action Plan button, (refer given image) which comes with all data auto filled with help of AI, like mcares dimension which I chose, mcares item which I chose, then define goal with Ai given response, then multiple action steps(sometime may be its one step and maybe sometime its will be more than 1 depend on mcares item rating. Display everything in a multiple rows like, Action steps & responsibility) and then desired outcome
+- Allow user to edit each and every value. If user agreed then submit directly, and if disgreed then redirect to main page where user can feel each and every data mannually
+- On main page, give mumbering to action-step-row, like first step give 1 and if user clicks on add button then second number and give them expand and collapse for each action-step-row so user can view everything in one screen with minimal scrolling by collapsing
