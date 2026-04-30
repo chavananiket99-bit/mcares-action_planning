@@ -1,0 +1,2354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M-CARES Survey</title>
+    <link
+      rel="stylesheet"
+      href="https://fontsstorage.blob.core.windows.net/html/css/georama.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link href="style.css" />
+
+    <style>
+      body {
+        background-color: #f8f9fa;
+        overflow-x: hidden;
+        font-family: "Georama-Regular";
+        letter-spacing: 0.03rem;
+      }
+      :root {
+        --mahindra-red: #e31837;
+      }
+      .navbar {
+        background-color: var(--mahindra-red);
+        color: white;
+        border-bottom: 1px solid #b91c31;
+      }
+      .profile-info {
+        font-size: 11.38px;
+      }
+      .btn-logout {
+        background: #ffffff1a;
+        border: 1px solid #ffffff33;
+        border-radius: 8.75px;
+        letter-spacing: 0.03rem;
+        font-size: 12.25px;
+      }
+      .btn-logout a {
+        text-decoration: none;
+        color: white;
+      }
+      .btn-logout:hover a {
+        color: #e31837;
+      }
+      .btn-logout:hover svg path {
+        stroke: #e31837;
+      }
+      .footer {
+        background: #231f20;
+        border: 1px solid #364153;
+        color: #ffffffb2;
+        padding: 10px 0;
+        font-size: 11.38px;
+        position: relative;
+        width: 100%;
+        margin-top: 20px;
+        position: fixed;
+        bottom: 0;
+      }
+      .main-manu-div {
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0px 1px 2px -1px #0000001a;
+        box-shadow: 0px 1px 3px 0px #0000001a;
+        padding: 10px 80px;
+        padding: 10px 80px;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+      }
+      .menu-item {
+        font-weight: 500;
+        font-size: 12.25px;
+        color: #4d4d4f;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .menu-item:hover {
+        color: var(--mahindra-red) !important;
+      }
+      .menu-item.active {
+        color: #e31837 !important;
+        border-bottom: 2px solid #e31837;
+      }
+      .viewport {
+        width: 100vw;
+        overflow: hidden;
+      }
+      .slider-container {
+        display: flex;
+        width: 300vw;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .screen {
+        width: 100vw;
+        padding: 10px 20px;
+        flex-shrink: 0;
+        box-sizing: border-box;
+      }
+      .card {
+        border: 1px solid #4d4d4f33;
+      }
+      #orientation-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(14 12 12 / 83%);
+        z-index: 9999;
+        color: white;
+        text-align: center;
+      }
+      .orientation-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+      }
+      .rotate-icon {
+        font-size: 50px;
+        margin-bottom: 20px;
+        animation: rotateDevice 2s infinite;
+      }
+      @keyframes rotateDevice {
+        0% {
+          transform: rotate(0deg);
+        }
+        50% {
+          transform: rotate(-90deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+      .modal-title {
+        font-size: 16px;
+      }
+      .form-label,
+      select.form-select,
+      .form-control {
+        font-size: 13px;
+      }
+      .action-summary-table thead th {
+        background-color: var(--mahindra-red) !important;
+        color: white;
+        font-size: 11px;
+        text-transform: uppercase;
+        text-align: center;
+        border: 1px solid #fff;
+        vertical-align: middle;
+      }
+      .action-summary-table td {
+        border: 1px solid #dee2e6 !important;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+      .btn-mahindra {
+        background-color: var(--mahindra-red);
+        color: white;
+        border: none;
+      }
+      .btn-mahindra:hover {
+        background-color: #b91c31;
+        color: white;
+      }
+      .icon-span {
+        border-radius: 3px;
+        background-color: #80808099;
+        display: flex;
+        padding: 2px;
+      }
+      .icon-span img {
+        width: 20px;
+        margin: auto;
+      }
+      .action-card {
+        cursor: pointer;
+        background: #e9eaea80;
+      }
+      .action-card img {
+        width: 30px;
+      }
+      .table-action-btn {
+        cursor: pointer;
+      }
+
+      @media screen and (max-width: 992px) and (orientation: landscape) {
+        #orientation-overlay {
+          display: block;
+        }
+        body {
+          overflow: hidden;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .screen {
+          padding: 10px;
+        }
+        h4 {
+          font-size: 1.2rem;
+        }
+        .profile-name {
+          display: none;
+        }
+        .main-manu-div {
+          padding: 10px 10px;
+        }
+        .footer {
+          display: none;
+        }
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* AI Suggestions Styles */
+      .suggested-items {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .suggested-item {
+        padding: 8px 12px;
+        background-color: #f8f9fa;
+        border-left: 3px solid var(--mahindra-red);
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.2s ease;
+        animation: fadeIn 0.3s ease-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .suggested-item:hover {
+        background-color: #e31837;
+        color: white;
+        padding-left: 15px;
+      }
+      .btn-link {
+        text-decoration: none;
+        font-size: 12px;
+      }
+      .btn-link:hover {
+        text-decoration: underline;
+      }
+      .btn-link.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+      #proceedToOverlayBtn {
+        transition: all 0.3s ease;
+      }
+      #proceedToOverlayBtn:not(.disabled):hover {
+        transform: translateX(2px);
+      }
+      .ai-suggestions-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .ai-suggestions-overlay.show {
+        display: flex;
+      }
+
+      .ai-suggestions-modal {
+        background: white;
+        border-radius: 8px;
+        padding: 24px;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        animation: slideUp 0.3s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .suggestions-field-group {
+        margin-bottom: 20px;
+      }
+
+      .suggestions-field-group label {
+        font-weight: 600;
+        color: #231f20;
+        margin-bottom: 8px;
+        display: block;
+        font-size: 12px;
+      }
+
+      .suggestions-field-group .suggestion-items {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .suggestion-chip {
+        padding: 8px 12px;
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.2s ease;
+        border-left: 3px solid var(--mahindra-red);
+      }
+
+      .suggestion-chip:hover {
+        background-color: #e31837;
+        color: white;
+        padding-left: 15px;
+      }
+      .ai-icon {
+        cursor: pointer;
+        position: relative;
+      }
+      .ai-icon:hover::after {
+        content: "AI Suggestions";
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: white;
+        padding: 4px 8px;
+        font-size: 10px;
+        border-radius: 4px;
+        white-space: nowrap;
+        z-index: 100;
+      }
+      .ai-icon,
+      .ai-icon img {
+        width: 15px;
+      }
+      .suggestion-opt {
+        font-size: 13px;
+        padding: 10px 12px;
+        cursor: pointer;
+        border-radius: 4px;
+        border: 1px solid #e0e0e0;
+        background: #f9f9f9;
+        margin-bottom: 8px;
+        transition: all 0.2s ease;
+      }
+      .suggestion-opt:hover {
+        background: #e31837;
+        color: white;
+        border-color: #e31837;
+        padding-left: 15px;
+      }
+      .action-step-row {
+        background: white;
+        padding: 12px;
+        border-radius: 6px;
+        border-left: 3px solid #e31837;
+      }
+      .cursor-pointer {
+        cursor: pointer;
+      }
+      #aiSuggestionsModal.show {
+        display: flex !important;
+      }
+      .abbreviation-overlay {
+        background: white;
+        border-radius: 8px;
+        padding: 24px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        animation: slideInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .abbreviation-overlay h6 {
+        color: #231f20;
+        font-weight: 600;
+        margin-bottom: 16px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .abbreviation-overlay h6 i {
+        color: #e31837;
+        font-size: 16px;
+      }
+      .abbreviation-item {
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        border-left: 3px solid #e31837;
+      }
+      .abbreviation-item strong {
+        color: #231f20;
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .abbreviation-item span {
+        color: #666;
+        font-size: 12px;
+        margin-top: 2px;
+        display: block;
+        line-height: 1.3;
+      }
+      .abbreviation-overlay .abbreviation-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-top: 12px;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 10px;
+      }
+      .abbreviation-overlay .abbreviation-buttons button {
+        font-size: 11px;
+        padding: 4px 10px;
+      }
+      .ai-section-overlay {
+        position: absolute;
+        z-index: 2001;
+        background: white;
+        border-radius: 8px;
+        padding: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        width: 280px;
+        max-height: 300px;
+        overflow-y: auto;
+        animation: slideInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+      .ai-section-overlay h6 {
+        color: #231f20;
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .ai-section-overlay h6 i {
+        color: #e31837;
+        font-size: 14px;
+      }
+      .ai-suggestions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .ai-suggestion-item {
+        background: #f8f9fa;
+        padding: 8px;
+        border-radius: 4px;
+        border-left: 3px solid #e31837;
+        cursor: pointer;
+        font-size: 12px;
+        color: #333;
+        transition: all 0.2s ease;
+      }
+      .ai-suggestion-item:hover {
+        background: #e31837;
+        color: white;
+      }
+      #abbrBtn {
+        background-color: #000;
+        color: #fff;
+      }
+      #abbrBtn .ai-icon {
+        width: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="orientation-overlay" class="orientation-wrapper">
+      <div class="orientation-content">
+        <i class="fas fa-mobile-alt rotate-icon"></i>
+        <h5>Please Rotate Your Device</h5>
+        <p>
+          For the best experience, please use <strong>Portrait Mode</strong>.
+        </p>
+      </div>
+    </div>
+    <nav class="navbar px-4 py-3 d-flex justify-content-between">
+      <img src="images/mahindra_white.png" alt="Mahindra" height="18" />
+      <div class="small profile-info">
+        <span class="profile-name" id="welcomeName">Welcome, User |</span>
+        <button
+          id="hrSpocBtn"
+          class="btn btn-sm btn-outline-light ms-2 btn-logout hidden"
+        >
+          <a class="logout" href="index.html"> HR SPOC View </a>
+        </button>
+
+        <button class="btn btn-sm btn-outline-light ms-2 btn-logout">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="https://apc01.safelinks.protection.outlook.com/?url=http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg&data=05%7C02%7Cchavan.aniket%40mahindra.com%7C3788ab235de242e595d708de705f0d99%7C8c4858b5f020483ab7ef71ded6e81767%7C0%7C0%7C639071751477331840%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C40000%7C%7C%7C&sdata=%2FHCS83kyynb%2BlW3jcq4Q2mdMYAzu6mFq4i1mJJfVfi4%3D&reserved=0"
+          >
+            <path
+              d="M5.25 12.25H2.91667C2.60725 12.25 2.3105 12.1271 2.09171 11.9083C1.87292 11.6895 1.75 11.3928 1.75 11.0833V2.91667C1.75 2.60725 1.87292 2.3105 2.09171 2.09171C2.3105 1.87292 2.60725 1.75 2.91667 1.75H5.25"
+              stroke="white"
+              stroke-width="1.16667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9.33325 9.91671L12.2499 7.00004L9.33325 4.08337"
+              stroke="white"
+              stroke-width="1.16667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M12.25 7H5.25"
+              stroke="white"
+              stroke-width="1.16667"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <a class="logout" href="login.html"> Logout </a>
+        </button>
+      </div>
+    </nav>
+
+    <div class="bg-white mb-3 main-manu-div">
+      <div class="d-flex flex-wrap align-items-center">
+        <span
+          class="text-muted me-3 small menu-item"
+          onclick="location.href = 'overview.html'"
+          >Overview</span
+        >
+        <span
+          class="text-muted me-3 small menu-item"
+          id="survey"
+          onclick="location.href = 'mcares_ui.html'"
+        >
+          My Survey</span
+        >
+        <span
+          class="text-muted me-3 small menu-item"
+          id="scoreCard"
+          onclick="location.href = 'scorecard-main.html'"
+          >Scorecard</span
+        >
+        <span
+          class="text-muted me-3 small menu-item active"
+          id="actionPlanning"
+          onclick="location.href = 'action-planning.html'"
+          >Action Planning</span
+        >
+      </div>
+    </div>
+
+    <div class="viewport">
+      <div class="slider-container" id="mainSlider">
+        <section class="screen">
+          <div class="container-fluid">
+            <div class="card p-3">
+              <!-- <div class="d-flex justify-content-between mb-2">
+                <h5 class="mb-2 title-with-icon">Action Planning</h5>
+              </div> -->
+              <div class="row g-4">
+                <div class="col-12 col-lg-6">
+                  <div class="card shadow-sm border-0">
+                    <div
+                      class="card-header bg-dark text-white d-flex align-items-center gap-2"
+                    >
+                      <span class="icon-span"
+                        ><img src="images/add_icon.png"
+                      /></span>
+                      Add Action Plan
+                    </div>
+                    <div class="card-body">
+                      <div class="row text-center g-2">
+                        <div class="col-6 col-md-3">
+                          <div
+                            class="p-3 rounded d-flex flex-column align-items-center justify-content-center action-card"
+                            data-bs-toggle="modal"
+                            data-bs-target="#actionPlanningModal"
+                          >
+                            <img src="images/team_icon.png" />
+                            <div class="small mt-2">Team</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <div class="card shadow-sm border-0">
+                    <div
+                      class="card-header bg-dark text-white d-flex align-items-center gap-2"
+                    >
+                      <span class="icon-span"
+                        ><img src="images/view_icon.png"
+                      /></span>
+                      View/Edit Action Plan
+                    </div>
+                    <div class="card-body">
+                      <div class="row text-center g-2">
+                        <div class="col-6 col-md-3">
+                          <div
+                            class="p-3 rounded d-flex flex-column align-items-center justify-content-center action-card"
+                          >
+                            <img src="images/team_icon.png" />
+                            <div class="small mt-2">Team</div>
+                          </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                          <div
+                            class="p-3 rounded d-flex flex-column align-items-center justify-content-center action-card"
+                          >
+                            <img src="images/manager_icon.png" />
+                            <div class="small mt-2">Manager</div>
+                          </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                          <div
+                            class="p-3 rounded d-flex flex-column align-items-center justify-content-center action-card"
+                          >
+                            <img src="images/reportees_icon.png" />
+                            <div class="small mt-2">Reportees</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="screen">
+          <div class="card p-0 shadow-sm">
+            <div
+              class="d-flex justify-content-between align-items-center p-2 bg-white border-bottom"
+            >
+              <button
+                class="btn btn-sm btn-outline-secondary"
+                onclick="moveSlider(0)"
+              >
+                <i class="fa fa-arrow-left"></i> Back
+              </button>
+              <div>
+                <button
+                  class="btn btn-mahindra btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#actionPlanningModal"
+                  onclick="resetModalState()"
+                >
+                  Add Another Goal
+                </button>
+                <button
+                  class="btn btn-mahindra btn-sm ms-1"
+                  onclick="submitSurvey()"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered mb-0 action-summary-table">
+                <thead>
+                  <tr>
+                    <th>MCARES Dimension</th>
+                    <th>MCARES Item</th>
+                    <th>Current Year Score</th>
+                    <th>Desired Outcome</th>
+                    <th>Action Goals</th>
+                    <th>Action Steps</th>
+                    <th>Resources Required</th>
+                    <th>Responsibility</th>
+                    <th>Completion Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="summaryTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <footer class="footer text-center">
+      © 2026 Mahindra Group. All rights reserved.
+    </footer>
+
+    <div
+      class="modal fade"
+      id="actionPlanningModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="position: relative">
+          <div
+            id="abbreviationOverlay"
+            class="hidden"
+            style="
+              position: fixed;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: rgba(0, 0, 0, 0.5);
+              z-index: 2000;
+              display: none;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <div class="abbreviation-overlay">
+              <h6><i class="fas fa-sparkles"></i>AI Suggestions</h6>
+              <div>
+                <div class="abbreviation-item">
+                  <strong>Goal:</strong>
+                  <span id="abbrGoal"></span>
+                </div>
+                <div class="abbreviation-item">
+                  <strong>Action Steps:</strong>
+                  <span id="abbrSteps"></span>
+                </div>
+                <div class="abbreviation-item">
+                  <strong>Desired Outcome:</strong>
+                  <span id="abbrOutcome"></span>
+                </div>
+                <div class="abbreviation-item">
+                  <strong>Responsibility:</strong>
+                  <span id="abbrResp"></span>
+                </div>
+              </div>
+              <div class="abbreviation-buttons">
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  onclick="handleAbbrChoice(false)"
+                >
+                  Disagree
+                </button>
+                <button
+                  class="btn btn-danger btn-sm"
+                  onclick="handleAbbrChoice(true)"
+                >
+                  Agree
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- AI Suggestion Overlays for Each Section -->
+          <div
+            id="goalSuggestionOverlay"
+            class="hidden ai-section-overlay"
+            style="display: none"
+          ></div>
+          <div
+            id="stepsSuggestionOverlay"
+            class="hidden ai-section-overlay"
+            style="display: none"
+          ></div>
+          <div
+            id="responsibilitySuggestionOverlay"
+            class="hidden ai-section-overlay"
+            style="display: none"
+          ></div>
+          <div
+            id="outcomeSuggestionOverlay"
+            class="hidden ai-section-overlay"
+            style="display: none"
+          ></div>
+          <div
+            class="modal-header bg-light d-flex justify-content-between align-items-center"
+          >
+            <h5 class="modal-title text-secondary">Action Planning</h5>
+            <div class="d-flex align-items-center gap-2">
+              <button
+                type="button"
+                id="abbrBtn"
+                class="btn btn-sm hidden"
+                onclick="showAbbreviationOverlay()"
+                title="View AI-Generated Plan"
+              >
+                <img
+                  src="images/sparkle-ai-icon.svg"
+                  class="me-1 ai-icon"
+                />Action Plan
+              </button>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <form id="planForm">
+              <input type="hidden" id="modalItem" />
+              <div class="row mb-3">
+                <div class="col-md-3">
+                  <label class="form-label small text-secondary"
+                    >MCARES Dimension</label
+                  >
+                  <select
+                    class="form-select"
+                    id="modalDimension"
+                    onchange="showMcaresItemsTable()"
+                  >
+                    <option value="">Select Dimension</option>
+                    <option value="Careers">Careers</option>
+                    <option value="Alignment">Alignment</option>
+                    <option value="Recognition">Recognition</option>
+                  </select>
+                </div>
+                <div class="col-md-9">
+                  <label class="form-label small text-secondary"
+                    >Select MCARES Item</label
+                  >
+                  <div
+                    id="mcaresItemsList"
+                    class="border rounded p-2 bg-light"
+                    style="
+                      max-height: 200px;
+                      overflow-y: auto;
+                      min-height: 40px;
+                    "
+                  >
+                    <!-- Dynamic Items -->
+                  </div>
+                </div>
+              </div>
+              <div id="mcaresItemSection" class="hidden"></div>
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label class="form-label small text-secondary"
+                    >Define Goal</label
+                  >
+                  <span
+                    class="ai-icon"
+                    title="AI Suggestions"
+                    onclick="toggleAISideDiv('goal', this)"
+                  >
+                    <img src="images/sparkle-ai-icon.svg" />
+                  </span>
+                </div>
+                <input type="text" class="form-control" id="modalGoal" />
+              </div>
+              <div class="mb-3">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-2"
+                >
+                  <label class="form-label small text-secondary mb-0"
+                    >Action Steps & Responsibility</label
+                  >
+                  <!-- <img
+                    src="images/sparkle-ai-icon.svg"
+                    class="ai-icon"
+                    onclick="toggleAISideDiv('steps', this)"
+                    title="AI Suggestions"
+                  /> -->
+                </div>
+                <div
+                  id="actionStepsContainer"
+                  class="border rounded p-3"
+                  style="background-color: #f8f9fa"
+                >
+                  <div class="action-step-row mb-3" data-row-index="0">
+                    <div class="row mb-2 g-2">
+                      <div class="col-md-6">
+                        <label class="form-label small text-secondary"
+                          >Action Steps
+                          <img
+                            class="ai-icon cursor-pointer"
+                            src="images/sparkle-ai-icon.svg"
+                            title="AI Suggestions"
+                            onclick="toggleAISideDiv('steps', this)"
+                          />
+                        </label>
+                        <textarea
+                          class="form-control form-control-sm action-step-input"
+                          placeholder="Enter steps..."
+                          rows="2"
+                        ></textarea>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label small text-secondary"
+                          >Resources</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control form-control-sm resource-input"
+                          placeholder="Budget, etc..."
+                        />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label small text-secondary"
+                          >Responsibility
+                          <img
+                            src="images/sparkle-ai-icon.svg"
+                            class="ai-icon cursor-pointer"
+                            title="AI Suggestions"
+                            onclick="toggleAISideDiv('responsibility', this)"
+                          />
+                        </label>
+                        <input
+                          type="text"
+                          class="form-control form-control-sm responsibility-input"
+                          placeholder="Person/Team"
+                        />
+                      </div>
+                      <div class="col-md-3">
+                        <label class="form-label small text-secondary"
+                          >Completion Date</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control form-control-sm completion-date-input"
+                        />
+                      </div>
+                      <div class="col-md-3 d-flex">
+                        <button
+                          type="button"
+                          class="btn btn-sm mt-4"
+                          onclick="addActionStepRow()"
+                          title="Add"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-plus-circle"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                            ></path>
+                            <path
+                              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- <div class="d-flex mb-2 g-2">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-danger w-100"
+                        onclick="removeActionStepRow(0)"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label class="form-label small text-secondary"
+                    >Desired Outcome</label
+                  >
+                  <span
+                    class="ai-icon"
+                    title="AI Suggestions"
+                    onclick="toggleAISideDiv('outcome', this)"
+                  >
+                    <img src="images/sparkle-ai-icon.svg" />
+                  </span>
+                </div>
+                <input type="text" class="form-control" id="modalOutcome" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              onclick="saveActionPlan()"
+              id="addBtn"
+              type="button"
+              class="btn btn-danger px-4 btn-sm"
+            >
+              Add
+            </button>
+            <button
+              id="updateBtn"
+              onclick="updateActionPlan()"
+              type="button"
+              class="btn btn-primary px-4 btn-sm d-none"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-dark px-4 btn-sm"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- AI Suggestions Modal Overlay -->
+    <div
+      id="aiSuggestionsModal"
+      class="hidden"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 3000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        class="bg-white rounded shadow-lg p-4"
+        style="
+          max-width: 650px;
+          width: 90%;
+          max-height: 80vh;
+          overflow-y: auto;
+          animation: slideUp 0.3s ease-out;
+        "
+      >
+        <div
+          class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom"
+        >
+          <h6 class="mb-0" id="aiSuggestionsTitle">AI Suggestions</h6>
+          <button
+            type="button"
+            class="btn-close"
+            onclick="closeSideDiv()"
+          ></button>
+        </div>
+        <div id="aiOptionsList" class="suggestions-list"></div>
+        <div class="mt-3 d-flex justify-content-end gap-2">
+          <button
+            type="button"
+            class="btn btn-sm btn-outline-secondary"
+            onclick="closeSideDiv()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      let editRowGroup = null;
+
+      // AI Suggestions data
+      const aiSuggestions = {
+        Careers: {
+          goals: [
+            "Develop a personalized career development plan aligned with organizational goals",
+            "Complete advanced certifications to enhance professional skills",
+            "Mentor junior team members to build leadership capabilities",
+            "Identify and pursue stretch assignments for career growth",
+          ],
+          steps: [
+            "Discuss career aspirations with manager in one-on-one meetings",
+            "Enroll in relevant training programs and certifications",
+            "Seek mentorship from senior leaders in the organization",
+            "Document progress and achievements regularly",
+            "Review and update development plan quarterly",
+          ],
+          responsibility: [
+            "Employee with Manager's support",
+            "HR Department & Learning Team",
+            "Direct Manager & Mentors",
+            "Employee & Team Lead",
+          ],
+          outcomes: [
+            "Improved career clarity and actionable growth roadmap",
+            "Enhanced skills and certifications acquired",
+            "Stronger leadership and mentoring capabilities",
+            "Increased internal mobility and promotion readiness",
+          ],
+        },
+        Alignment: {
+          goals: [
+            "Strengthen linkage between personal KRAs and company vision",
+            "Improve visibility of organizational goals across the team",
+            "Enhance alignment through regular communication channels",
+            "Create alignment dashboard for goal tracking",
+          ],
+          steps: [
+            "Conduct alignment workshops with teams",
+            "Create visual communication of company vision and goals",
+            "Implement regular town halls or team sync meetings",
+            "Establish feedback mechanisms for alignment clarity",
+            "Cascade goals from organizational to individual level",
+          ],
+          responsibility: [
+            "Manager with Leadership Team",
+            "HR & Communications Department",
+            "Department Head & Team Leads",
+            "All Employees",
+          ],
+          outcomes: [
+            "Clear understanding of organizational direction among employees",
+            "Improved employee engagement and ownership",
+            "Better goal setting aligned with company objectives",
+            "Higher performance on company-wide initiatives",
+          ],
+        },
+        Recognition: {
+          goals: [
+            "Enhance recognition mechanisms for employee contributions",
+            "Implement regular feedback and appreciation programs",
+            "Build a culture of peer recognition and celebration",
+            "Strengthen performance appraisal processes",
+          ],
+          steps: [
+            "Design and launch recognition program",
+            "Conduct feedback training for managers",
+            "Implement peer recognition platform or mechanism",
+            "Schedule regular appreciation events",
+            "Gather feedback on recognition effectiveness",
+          ],
+          responsibility: [
+            "HR Department with Leadership",
+            "Department Managers",
+            "Recognition Committee",
+            "All Employees",
+          ],
+          outcomes: [
+            "Improved employee morale and job satisfaction",
+            "Better retention of high performers",
+            "Increased visibility of employee contributions",
+            "Stronger team cohesion and collaboration",
+          ],
+        },
+        Empowerment: {
+          goals: [
+            "Improve organizational communication and information flow",
+            "Empower employees with decision-making authority",
+            "Build collaborative culture and teamwork",
+            "Enhance trust and transparency in operations",
+          ],
+          steps: [
+            "Establish multiple communication channels",
+            "Conduct empowerment and delegation training",
+            "Create cross-functional collaboration spaces",
+            "Share organizational updates and decisions regularly",
+            "Document and communicate process improvements",
+          ],
+          responsibility: [
+            "Leadership & Communication Team",
+            "Department Managers",
+            "HR Department",
+            "All Employees",
+          ],
+          outcomes: [
+            "Better informed and engaged workforce",
+            "Increased autonomy and ownership",
+            "Improved collaboration and teamwork",
+            "Higher transparency and trust levels",
+          ],
+        },
+        Strive: {
+          goals: [
+            "Promote employee wellness and work-life balance",
+            "Build ethical culture and integrity practices",
+            "Encourage physical, mental, and emotional well-being",
+            "Implement fair and equitable practices",
+          ],
+          steps: [
+            "Launch wellness programs and fitness initiatives",
+            "Conduct ethics training and awareness sessions",
+            "Implement flexible work arrangements",
+            "Create support channels for mental health",
+            "Monitor and ensure fair treatment practices",
+          ],
+          responsibility: [
+            "HR Department with Leadership",
+            "Wellness & Health Team",
+            "Ethics Committee",
+            "All Managers",
+          ],
+          outcomes: [
+            "Improved employee health and well-being",
+            "Reduced burnout and stress levels",
+            "Stronger ethical culture and integrity",
+            "Higher employee satisfaction and loyalty",
+          ],
+        },
+      };
+
+      // MCARES Items data with scores
+      const mcaresData = {
+        Careers: [
+          {
+            item: "I see career opportunities in line with my career aspirations.",
+            score: 3.5,
+          },
+          {
+            item: "I believe that my organization is developing/grooming employees to take on future responsibilities.",
+            score: 3.2,
+          },
+          {
+            item: "The goal setting process has helped me understand my role better.",
+            score: 3.8,
+          },
+          {
+            item: "My manager encourages me to innovate at my work.",
+            score: 3.6,
+          },
+        ],
+        Alignment: [
+          {
+            item: "I feel that I am contributing to the overall vision of my company.",
+            score: 4.1,
+          },
+          {
+            item: "I see a clear linkage between my KRAs and the goals/targets of my company.",
+            score: 3.9,
+          },
+          {
+            item: "I believe that the actions taken by my organization will help us achieve our vision.",
+            score: 3.7,
+          },
+          { item: "My opinions count in the organization.", score: 3.4 },
+        ],
+        Recognition: [
+          {
+            item: "The appraisal system helps to get the best out of me.",
+            score: 3.3,
+          },
+          {
+            item: "I received constructive, actionable feedback during my Performance Appraisal and at other times.",
+            score: 3.6,
+          },
+          {
+            item: "I feel proud to say that I work for this company.",
+            score: 4.2,
+          },
+          {
+            item: "I believe that my organization holds people accountable for results.",
+            score: 3.8,
+          },
+        ],
+        Empowerment: [
+          {
+            item: "I am kept informed of the happenings in my function by my Manager / Department Head through mails, newsletters, Intranet or other similar communication channels.",
+            score: 3.5,
+          },
+          { item: "My Managers actions match his/her words.", score: 3.7 },
+          {
+            item: "I see people in my organization collaborate to help others succeed.",
+            score: 3.9,
+          },
+          {
+            item: "I believe that colleagues I interact with adhere to commitments made.",
+            score: 4.0,
+          },
+        ],
+        Strive: [
+          {
+            item: "Employees are encouraged to balance their work and personal life.",
+            score: 3.4,
+          },
+          {
+            item: "My organization encourages me to be fit - physically, mentally and emotionally.",
+            score: 3.6,
+          },
+          {
+            item: "The organization upholds the dignity of its employees.",
+            score: 4.1,
+          },
+          {
+            item: "I am treated fairly irrespective of my age, gender, religion, etc.",
+            score: 4.3,
+          },
+          {
+            item: "I can report something unethical without fearing negative consequences.",
+            score: 3.8,
+          },
+        ],
+      };
+
+      function showMcaresItemsTable() {
+        const dimension = document.getElementById("modalDimension").value;
+        const itemsList = document.getElementById("mcaresItemsList");
+        const mcaresItemSection = document.getElementById("mcaresItemSection");
+
+        if (!dimension || !mcaresData[dimension]) {
+          itemsList.innerHTML =
+            '<div class="text-center text-muted small p-1">Select a dimension first</div>';
+          mcaresItemSection.classList.add("hidden");
+          return;
+        }
+
+        mcaresItemSection.classList.remove("hidden");
+
+        const items = mcaresData[dimension];
+        itemsList.innerHTML = "";
+
+        const sortedItems = [...items].sort((a, b) => a.score - b.score);
+
+        sortedItems.forEach((itemData, sortIndex) => {
+          const index = items.findIndex(
+            (item) =>
+              item.item === itemData.item && item.score === itemData.score,
+          );
+          const card = document.createElement("div");
+          card.className = "mb-1 p-2 border rounded bg-white";
+          const radioId = `item_${dimension}_${index}`;
+
+          card.innerHTML = `
+            <div class="d-flex gap-2 align-items-center">
+              <div>
+                <input type="radio" class="form-check-input mcaresItemRadio"
+                       id="${radioId}"
+                       name="mcaresItem"
+                       value="${index}"
+                       data-item="${itemData.item}"
+                       data-score="${itemData.score}"
+                       onchange="selectMcaresItem(this)">
+              </div>
+              <label for="${radioId}" class="small mb-0 cursor-pointer flex-grow-1">${itemData.item}</label>
+              <small class="text-muted text-nowrap badge bg-light text-dark">Score: ${itemData.score.toFixed(1)}</small>
+            </div>
+          `;
+          itemsList.appendChild(card);
+        });
+      }
+
+      function selectMcaresItem(radioElement) {
+        const score = radioElement.getAttribute("data-score");
+        const item = radioElement.getAttribute("data-item");
+
+        document.getElementById("modalItem").value = item;
+
+        showAutoSuggestionsAfterItemSelection();
+
+        checkProceedButtonState();
+        enableAbbr();
+      }
+
+      function enableAbbr() {
+        document.getElementById("abbrBtn").classList.remove("hidden");
+      }
+
+      function showAbbreviationOverlay() {
+        const dim = document.getElementById("modalDimension").value;
+        document.getElementById("abbrGoal").innerText =
+          "Improve " + dim + " through weekly sessions";
+        document.getElementById("abbrSteps").innerText =
+          "1. Research tools, 2. Pilot program, 3. Review results";
+        document.getElementById("abbrOutcome").innerText =
+          "15% increase in " + dim + " score";
+        document.getElementById("abbrResp").innerText = "HR & Team Leads";
+
+        const overlay = document.getElementById("abbreviationOverlay");
+        overlay.classList.remove("hidden");
+        overlay.style.display = "flex";
+      }
+
+      function handleAbbrChoice(isAgreed) {
+        if (isAgreed) {
+          document.getElementById("modalGoal").value =
+            document.getElementById("abbrGoal").innerText;
+          document.getElementById("modalOutcome").value =
+            document.getElementById("abbrOutcome").innerText;
+
+          const stepsText = document.getElementById("abbrSteps").innerText;
+          const responsibilityText =
+            document.getElementById("abbrResp").innerText;
+
+          const stepsArray = stepsText
+            .split(/\d+\.\s+|\n+/)
+            .filter((s) => s.trim())
+            .map((s) => s.trim());
+
+          const container = document.getElementById("actionStepsContainer");
+          container.innerHTML = "";
+
+          stepsArray.forEach((step, index) => {
+            const newRow = document.createElement("div");
+            newRow.className = "action-step-row mb-3";
+            newRow.setAttribute("data-row-index", index);
+
+            newRow.innerHTML = `
+              <div class="row mb-2 g-2">
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary">Action Steps <img
+                            src="images/sparkle-ai-icon.svg"
+                            class="ai-icon cursor-pointer" onclick="toggleAISideDiv('steps', this)"
+                          /> </label>
+                  <textarea class="form-control form-control-sm action-step-input" placeholder="Enter steps..." rows="2">${step}</textarea>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary">Resources</label>
+                  <input type="text" class="form-control form-control-sm resource-input" placeholder="Budget, etc..." />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary">Responsibility  <img
+                            src="images/sparkle-ai-icon.svg"
+                            class="ai-icon cursor-pointer" onclick="toggleAISideDiv('responsibility', this)"
+                          /></label>
+                  <input type="text" class="form-control form-control-sm responsibility-input" placeholder="Person/Team" value="${responsibilityText}" />
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label small text-secondary">Completion Date</label>
+                  <input type="date" class="form-control form-control-sm completion-date-input" />
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                  <button type="button" class="btn btn-sm mt-4" onclick="removeActionStepRow(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+                    </svg></button>
+                </div>
+              </div>
+            `;
+
+            container.appendChild(newRow);
+          });
+
+          const addRowContainer = document.createElement("div");
+          addRowContainer.className = "d-flex gap-2 justify-content-end mt-2";
+          addRowContainer.innerHTML = `<button type="button" class="btn btn-sm" onclick="addActionStepRow()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
+                          </svg></button>`;
+          container.appendChild(addRowContainer);
+        }
+        const overlay = document.getElementById("abbreviationOverlay");
+        overlay.classList.add("hidden");
+        overlay.style.display = "none";
+      }
+
+      function toggleAISideDiv(type, element) {
+        const dimension = document.getElementById("modalDimension").value;
+        let suggestions = [];
+        let titleText = "AI Suggestions";
+        let overlayId = "";
+
+        if (dimension && aiSuggestions[dimension]) {
+          const dimSuggestions = aiSuggestions[dimension];
+          if (type === "goal") {
+            suggestions = dimSuggestions.goals || [];
+            titleText = "Suggested Goals";
+            overlayId = "goalSuggestionOverlay";
+          } else if (type === "steps") {
+            suggestions = dimSuggestions.steps || [];
+            titleText = "Suggested Action Steps";
+            overlayId = "stepsSuggestionOverlay";
+          } else if (type === "responsibility") {
+            suggestions = dimSuggestions.responsibility || [];
+            titleText = "Suggested Responsibility";
+            overlayId = "responsibilitySuggestionOverlay";
+          } else if (type === "outcome") {
+            suggestions = dimSuggestions.outcomes || [];
+            titleText = "Suggested Outcomes";
+            overlayId = "outcomeSuggestionOverlay";
+          }
+        }
+
+        document
+          .getElementById("goalSuggestionOverlay")
+          ?.classList.add("hidden");
+        document
+          .getElementById("stepsSuggestionOverlay")
+          ?.classList.add("hidden");
+        document
+          .getElementById("responsibilitySuggestionOverlay")
+          ?.classList.add("hidden");
+        document
+          .getElementById("outcomeSuggestionOverlay")
+          ?.classList.add("hidden");
+
+        const overlay = document.getElementById(overlayId);
+        if (!overlay) return;
+
+        const suggestionsList = suggestions
+          .map(
+            (sugg, idx) =>
+              `<div class="ai-suggestion-item" onclick="applySuggestion('${type}', '${sugg.replace(/'/g, "\\'")}')">${sugg}</div>`,
+          )
+          .join("");
+
+        overlay.innerHTML = `
+          <h6><i class="fas fa-sparkles"></i>${titleText}</h6>
+          <div class="ai-suggestions-list">
+            ${suggestionsList}
+          </div>
+        `;
+
+        const iconRect = element.getBoundingClientRect();
+        const modalContent = document.querySelector(".modal-content");
+        const modalRect = modalContent
+          ? modalContent.getBoundingClientRect()
+          : { top: 0, left: 0 };
+
+        const relativeTop = iconRect.top - modalRect.top;
+        const relativeLeft = iconRect.left - modalRect.left;
+
+        if (type === "goal" || type === "outcome") {
+          overlay.style.top = relativeTop - 8 + "px";
+          const modalWidth = modalContent ? modalContent.offsetWidth : 900;
+          overlay.style.left = modalWidth - 280 - 16 + "px";
+        } else {
+          overlay.style.top = relativeTop - 8 + "px";
+          overlay.style.left = "16px";
+        }
+
+        overlay.style.position = "absolute";
+
+        overlay.classList.remove("hidden");
+        overlay.style.display = "block";
+
+        event.stopPropagation();
+      }
+
+      function applySuggestion(type, val) {
+        if (type === "goal") {
+          document.getElementById("modalGoal").value = val;
+        } else if (type === "steps") {
+          const textareas = document.querySelectorAll(".action-step-input");
+          if (textareas.length > 0) {
+            textareas[textareas.length - 1].value = val;
+          } else {
+            document.getElementById("modalSteps").value = val;
+          }
+        } else if (type === "outcome") {
+          document.getElementById("modalOutcome").value = val;
+        } else if (type === "responsibility") {
+          const respInputs = document.querySelectorAll(".responsibility-input");
+          if (respInputs.length > 0) {
+            respInputs[respInputs.length - 1].value = val;
+          } else {
+            document.getElementById("modalResponsibility").value = val;
+          }
+        }
+        closeSideDiv();
+      }
+
+      function closeSideDiv() {
+        document
+          .getElementById("goalSuggestionOverlay")
+          ?.classList.add("hidden");
+        document
+          .getElementById("stepsSuggestionOverlay")
+          ?.classList.add("hidden");
+        document
+          .getElementById("responsibilitySuggestionOverlay")
+          ?.classList.add("hidden");
+        document
+          .getElementById("outcomeSuggestionOverlay")
+          ?.classList.add("hidden");
+
+        const modal = document.getElementById("aiSuggestionsModal");
+        if (modal) {
+          modal.classList.add("hidden");
+          modal.classList.remove("show");
+          modal.style.display = "none";
+        }
+      }
+
+      function showAutoSuggestionsAfterItemSelection() {
+        const dimension = document.getElementById("modalDimension").value;
+
+        if (!dimension || !aiSuggestions[dimension]) {
+          return;
+        }
+      }
+
+      function checkProceedButtonState() {
+        const dimension = document.getElementById("modalDimension").value;
+        const item = document.getElementById("modalItem").value;
+        const goal = document.getElementById("modalGoal").value;
+        const proceedBtn = document.getElementById("proceedToOverlayBtn");
+
+        if (proceedBtn) {
+          if (dimension && item && goal) {
+            proceedBtn.classList.remove("disabled");
+            proceedBtn.style.cursor = "pointer";
+          } else {
+            proceedBtn.classList.add("disabled");
+            proceedBtn.style.cursor = "not-allowed";
+          }
+        }
+      }
+
+      function addActionStepRow() {
+        const container = document.getElementById("actionStepsContainer");
+        const rowCount = container.querySelectorAll(".action-step-row").length;
+
+        const newRow = document.createElement("div");
+        newRow.className = "action-step-row mb-3";
+        newRow.setAttribute("data-row-index", rowCount);
+
+        newRow.innerHTML = `
+                <div class="row mb-2 g-2">
+                  <div class="col-md-6">
+                  <label class="form-label small text-secondary">Action Steps <img
+                            src="images/sparkle-ai-icon.svg"
+                            class="ai-icon cursor-pointer" onclick="toggleAISideDiv('steps', this)" 
+                          /></label>
+                  <textarea class="form-control form-control-sm action-step-input" placeholder="Enter action steps here..." rows="3"></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary">Resources</label>
+                  <input type="text" class="form-control form-control-sm resource-input" placeholder="e.g., Budget, Personnel..." />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small text-secondary">Responsibility <img
+                            src="images/sparkle-ai-icon.svg"
+                            class="ai-icon cursor-pointer" onclick="toggleAISideDiv('responsibility', this)" 
+                          /></label>
+                  <input type="text" class="form-control form-control-sm responsibility-input" placeholder="Who is responsible?" />
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label small text-secondary">Completion Date</label>
+                  <input type="date" class="form-control form-control-sm completion-date-input" />
+                </div>
+                <div class="col-md-3 d-flex">
+                  <button type="button" class="btn btn-sm mt-4" title="Remove" onclick="removeActionStepRow(${rowCount})">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>
+                  </button>
+                  <button type="button" class="btn btn-sm mt-4" onclick="addActionStepRow()" title="Add">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"></path>
+                          </svg>
+                  </button>
+                </div>
+                </div>
+              `;
+
+        container.appendChild(newRow);
+      }
+
+      function removeActionStepRow(index) {
+        const row = document.querySelector(`[data-row-index="${index}"]`);
+        if (row) {
+          row.remove();
+          const rows = document.querySelectorAll(".action-step-row");
+          rows.forEach((r, idx) => {
+            r.setAttribute("data-row-index", idx);
+            const removeBtn = r.querySelector(".btn-outline-danger");
+            if (removeBtn) {
+              removeBtn.setAttribute("onclick", `removeActionStepRow(${idx})`);
+            }
+          });
+        }
+      }
+
+      function showAISuggestions(fieldType, event) {
+        event.preventDefault();
+
+        const dimension = document.getElementById("modalDimension").value;
+        if (!dimension || !aiSuggestions[dimension]) {
+          alert("Please select a dimension first");
+          return;
+        }
+
+        let suggestions = [];
+        let tooltipId = "";
+        let suggestionKey = "";
+
+        if (fieldType === "goal") {
+          suggestions = aiSuggestions[dimension].goals;
+          tooltipId = "goalSuggestionsTooltip";
+          suggestionKey = "goal";
+        } else if (fieldType === "steps") {
+          suggestions = aiSuggestions[dimension].steps;
+          tooltipId = "stepsSuggestionsTooltip";
+          suggestionKey = "steps";
+        } else if (fieldType === "responsibility") {
+          suggestions = aiSuggestions[dimension].responsibility;
+          tooltipId = "responsibilitySuggestionsTooltip";
+          suggestionKey = "responsibility";
+        } else if (fieldType === "outcome") {
+          suggestions = aiSuggestions[dimension].outcomes;
+          tooltipId = "outcomeSuggestionsTooltip";
+          suggestionKey = "outcome";
+        }
+
+        const tooltip = document.getElementById(tooltipId);
+        const itemsDiv = tooltip.querySelector(".suggested-items");
+        itemsDiv.innerHTML = "";
+
+        suggestions.forEach((suggestion, index) => {
+          const itemDiv = document.createElement("div");
+          itemDiv.className = "suggested-item";
+          itemDiv.textContent = suggestion;
+          itemDiv.onclick = () =>
+            selectAISuggestion(suggestionKey, suggestion, tooltipId);
+          itemsDiv.appendChild(itemDiv);
+        });
+
+        tooltip.classList.remove("d-none");
+      }
+
+      function showAISuggestionsOverlay(fieldType, event) {
+        event.preventDefault();
+
+        const dimension = document.getElementById("modalDimension").value;
+        if (!dimension || !aiSuggestions[dimension]) {
+          alert("Please select a dimension and MCARES item first");
+          return;
+        }
+
+        const aiSuggestionsOverlay = document.getElementById(
+          "aiSuggestionsOverlay",
+        );
+        const suggestionsContainer = document.getElementById(
+          "suggestionsContainer",
+        );
+
+        suggestionsContainer.innerHTML = "";
+
+        let suggestions = [];
+        let title = "";
+
+        if (fieldType === "goal") {
+          suggestions = aiSuggestions[dimension].goals;
+          title = "Define Goal Suggestions";
+        } else if (fieldType === "steps") {
+          suggestions = aiSuggestions[dimension].steps;
+          title = "Action Steps Suggestions";
+        } else if (fieldType === "responsibility") {
+          suggestions = aiSuggestions[dimension].responsibility;
+          title = "Responsibility Suggestions";
+        } else if (fieldType === "outcome") {
+          suggestions = aiSuggestions[dimension].outcomes;
+          title = "Desired Outcome Suggestions";
+        }
+
+        document.getElementById("suggestionsTitle").textContent = title;
+
+        const suggestionItems = document.createElement("div");
+        suggestionItems.className = "suggestion-items";
+
+        suggestions.forEach((suggestion) => {
+          const chip = document.createElement("div");
+          chip.className = "suggestion-chip";
+          chip.textContent = suggestion;
+          chip.onclick = () => {
+            selectAISuggestionFromOverlay(fieldType, suggestion);
+          };
+          suggestionItems.appendChild(chip);
+        });
+
+        suggestionsContainer.appendChild(suggestionItems);
+        aiSuggestionsOverlay.classList.add("show");
+      }
+
+      function selectAISuggestionFromOverlay(fieldType, suggestion) {
+        if (fieldType === "goal") {
+          document.getElementById("modalGoal").value = suggestion;
+          checkProceedButtonState();
+        } else if (fieldType === "steps") {
+          document.getElementById("overlaySteps").value = suggestion;
+        } else if (fieldType === "responsibility") {
+          document.getElementById("overlayResponsibility").value = suggestion;
+        } else if (fieldType === "outcome") {
+          document.getElementById("modalOutcome").value = suggestion;
+          checkProceedButtonState();
+        }
+      }
+
+      function hideAISuggestions() {}
+
+      function selectAISuggestion(fieldType, suggestion, tooltipId) {}
+
+      function prepareOverlayModal() {
+        const dimension = document.getElementById("modalDimension").value;
+        const item = document.getElementById("modalItem").value;
+        const goal = document.getElementById("modalGoal").value;
+        const outcome = document.getElementById("modalOutcome").value;
+
+        document.getElementById("overlayDimension").textContent = dimension;
+        document.getElementById("overlayItem").textContent = item;
+        document.getElementById("overlayGoal").textContent = goal;
+        document.getElementById("overlayOutcome").textContent = outcome;
+
+        document.getElementById("overlaySteps").value = "";
+        document.getElementById("overlayResources").value = "";
+        document.getElementById("overlayResponsibility").value = "";
+        document.getElementById("overlayCompletionDate").value = "";
+      }
+
+      function confirmAndPopulateMainModal() {
+        const steps = document.getElementById("overlaySteps").value;
+        const resources = document.getElementById("overlayResources").value;
+        const responsibility = document.getElementById(
+          "overlayResponsibility",
+        ).value;
+        const completionDate = document.getElementById(
+          "overlayCompletionDate",
+        ).value;
+
+        if (!steps || !resources || !responsibility || !completionDate) {
+          alert(
+            "Please fill in all fields: Action Steps, Resources, Responsibility, and Completion Date",
+          );
+          return;
+        }
+
+        const actionStepBody = document.getElementById("actionStepBody");
+        actionStepBody.innerHTML = `
+                <tr>
+                  <td><textarea class="form-control form-control-sm" style="min-height: 80px;">${steps}</textarea></td>
+                  <td><input type="text" class="form-control form-control-sm" value="${resources}" /></td>
+                  <td><input type="text" class="form-control form-control-sm" value="${responsibility}" /></td>
+                  <td><input type="date" class="form-control form-control-sm bg-light" value="${completionDate}" /></td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-sm" onclick="addRow()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              `;
+
+        const overlayModal = bootstrap.Modal.getInstance(
+          document.getElementById("actionPlanningOverlayModal"),
+        );
+        if (overlayModal) {
+          overlayModal.hide();
+        }
+      }
+
+      function moveSlider(screenIndex) {
+        document.getElementById("mainSlider").style.transform =
+          `translateX(-${screenIndex * 100}vw)`;
+      }
+
+      function addRow() {
+        const tableBody = document.getElementById("actionStepBody");
+        const newRow = document.createElement("tr");
+        const rowId = "actionRow_" + Date.now();
+
+        newRow.innerHTML = `
+                <td>
+                  <div class="d-flex gap-2">
+                    <input type="text" class="form-control form-control-sm action-steps-input" placeholder="Steps...">
+                    <button type="button" class="btn btn-sm btn-link text-danger p-0" title="Show suggestions" onclick="showRowSuggestions('steps', '${rowId}')">
+                      <img src="images/sparkle-ai-icon.svg" />
+                    </button>
+                  </div>
+                </td>
+                <td><input type="text" class="form-control form-control-sm" placeholder="Resources..."></td>
+                <td>
+                  <div class="d-flex gap-2">
+                    <input type="text" class="form-control form-control-sm responsibility-input" placeholder="Responsibility...">
+                    <button type="button" class="btn btn-sm btn-link text-danger p-0" title="Show suggestions" onclick="showRowSuggestions('responsibility', '${rowId}')">
+                      <img src="images/sparkle-ai-icon.svg" />
+                    </button>
+                  </div>
+                </td>
+                <td><input type="date" class="form-control form-control-sm bg-light"></td>
+                <td class="text-center">
+                  <button type="button" class="btn btn-sm" onclick="this.closest('tr').remove()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>
+                  </button>
+                </td>
+              `;
+
+        newRow.id = rowId;
+        tableBody.appendChild(newRow);
+      }
+
+      function showRowSuggestions(fieldType, rowId) {
+        const dimension = document.getElementById("modalDimension").value;
+        if (!dimension || !aiSuggestions[dimension]) {
+          alert("Please select a dimension and MCARES item first");
+          return;
+        }
+
+        const row = document.getElementById(rowId);
+        const aiSuggestionsOverlay = document.getElementById(
+          "aiSuggestionsOverlay",
+        );
+        const suggestionsContainer = document.getElementById(
+          "suggestionsContainer",
+        );
+
+        suggestionsContainer.innerHTML = "";
+
+        let suggestions = [];
+        let title = "";
+
+        if (fieldType === "steps") {
+          suggestions = aiSuggestions[dimension].steps;
+          title = "Action Steps Suggestions";
+        } else if (fieldType === "responsibility") {
+          suggestions = aiSuggestions[dimension].responsibility;
+          title = "Responsibility Suggestions";
+        }
+
+        document.getElementById("suggestionsTitle").textContent = title;
+
+        const suggestionItems = document.createElement("div");
+        suggestionItems.className = "suggestion-items";
+
+        suggestions.forEach((suggestion) => {
+          const chip = document.createElement("div");
+          chip.className = "suggestion-chip";
+          chip.textContent = suggestion;
+          chip.onclick = () => {
+            selectRowSuggestion(rowId, fieldType, suggestion);
+          };
+          suggestionItems.appendChild(chip);
+        });
+
+        suggestionsContainer.appendChild(suggestionItems);
+        aiSuggestionsOverlay.classList.add("show");
+      }
+
+      function selectRowSuggestion(rowId, fieldType, suggestion) {
+        const row = document.getElementById(rowId);
+
+        if (fieldType === "steps") {
+          const input = row.querySelector(".action-steps-input");
+          if (input) input.value = suggestion;
+        } else if (fieldType === "responsibility") {
+          const input = row.querySelector(".responsibility-input");
+          if (input) input.value = suggestion;
+        }
+      }
+
+      function saveActionPlan() {
+        const dim = document.getElementById("modalDimension").value;
+        const item = document.getElementById("modalItem").value;
+        const score = document.getElementById("modalScore").value;
+        const goal = document.getElementById("modalGoal").value;
+        const outcome = document.getElementById("modalOutcome").value;
+
+        if (!dim) {
+          alert("Please select a MCARES Dimension");
+          return;
+        }
+        if (!item) {
+          alert("Please select a MCARES Item");
+          return;
+        }
+        if (!score) {
+          alert("Please select a MCARES Item to auto-populate the score");
+          return;
+        }
+        if (!goal) {
+          alert("Please define a goal");
+          return;
+        }
+        if (!outcome) {
+          alert("Please enter the desired outcome");
+          return;
+        }
+
+        const stepRows = document.querySelectorAll("#actionStepBody tr");
+        const rowSpanCount = stepRows.length;
+
+        const summaryBody = document.getElementById("summaryTableBody");
+        stepRows.forEach((row, index) => {
+          const inputs = row.querySelectorAll("input");
+          const tr = document.createElement("tr");
+
+          let mainCols = "";
+          if (index === 0) {
+            mainCols = `
+                            <td rowspan="${rowSpanCount}">${dim}</td>
+                            <td rowspan="${rowSpanCount}">${item}</td>
+                            <td rowspan="${rowSpanCount}">${score}</td>
+                            <td rowspan="${rowSpanCount}">${outcome}</td>
+                            <td rowspan="${rowSpanCount}">${goal}</td>
+                        `;
+          }
+          tr.innerHTML = `
+                        ${mainCols}
+                        <td>${inputs[0].value}</td>
+                        <td>${inputs[1].value}</td>
+                        <td>${inputs[2].value}</td>
+                        <td>${inputs[3].value}</td>
+                        ${
+                          index === 0
+                            ? `<td rowspan="${rowSpanCount}" class="text-center">
+                            <span class="p-1 table-action-btn" onclick="editActionPlan(this)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+      </svg></span>
+                            <span class="p-1 table-action-btn" onclick="this.closest('tr').remove()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+      </svg></span>
+                        </td>`
+                            : ""
+                        }
+                    `;
+          summaryBody.appendChild(tr);
+        });
+
+        const modalElement = document.getElementById("actionPlanningModal");
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+
+        if (modalInstance) {
+          modalInstance.hide();
+        }
+
+        moveSlider(1);
+        document.getElementById("planForm").reset();
+        document.getElementById("actionStepBody").innerHTML = `
+      <tr>
+      <td><input type="text" class="form-control form-control-sm"></td>
+      <td><input type="text" class="form-control form-control-sm"></td>
+      <td><input type="text" class="form-control form-control-sm"></td>
+      <td><input type="date" class="form-control form-control-sm bg-light"></td>
+      <td class="text-center">
+      <button type="button" class="btn btn-sm" onclick="addRow()">
+      <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    class="bi bi-plus-circle"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path
+                                      d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                                    />
+                                    <path
+                                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                                    />
+                                  </svg>
+      </button>
+      </td>
+      </tr>`;
+      }
+
+      function deleteRow(button) {
+        const row = button.closest("tr");
+        row.remove();
+      }
+
+      function editActionPlan(button) {
+        const row = button.closest("tr");
+        editRowGroup = row;
+
+        const rowSpanCount =
+          parseInt(row.cells[0].getAttribute("rowspan")) || 1;
+        const summaryBody = document.getElementById("summaryTableBody");
+        const allRows = Array.from(summaryBody.querySelectorAll("tr"));
+        const startIndex = allRows.indexOf(row);
+        const groupRows = allRows.slice(startIndex, startIndex + rowSpanCount);
+
+        const dimension = row.cells[0].innerText;
+        const itemText = row.cells[1].innerText;
+        const score = row.cells[2].innerText;
+        const outcome = row.cells[3].innerText;
+        const goal = row.cells[4].innerText;
+
+        document.getElementById("modalDimension").value = dimension;
+        populateMcaresItems();
+
+        document.getElementById("modalScore").value = score;
+        document.getElementById("modalItem").value = itemText;
+        document.getElementById("modalOutcome").value = outcome;
+        document.getElementById("modalGoal").value = goal;
+
+        setTimeout(() => {
+          const radios = document.querySelectorAll("input[name='mcaresItem']");
+          radios.forEach((radio) => {
+            if (radio.getAttribute("data-item") === itemText) {
+              radio.checked = true;
+            }
+          });
+        }, 100);
+
+        const modalStepBody = document.getElementById("actionStepBody");
+        modalStepBody.innerHTML = "";
+
+        groupRows.forEach((gRow, index) => {
+          const offset = index === 0 ? 5 : 0;
+          const newRow = document.createElement("tr");
+          newRow.innerHTML = `
+      <td><input type="text" class="form-control form-control-sm" value="${gRow.cells[offset].innerText}"></td>
+      <td><input type="text" class="form-control form-control-sm" value="${gRow.cells[offset + 1].innerText}"></td>
+      <td><input type="text" class="form-control form-control-sm" value="${gRow.cells[offset + 2].innerText}"></td>
+      <td><input type="date" class="form-control form-control-sm bg-light" value="${gRow.cells[offset + 3].innerText}"></td>
+      <td class="text-center">
+                     ${
+                       index === 0
+                         ? `<button type="button" class="btn btn-sm" onclick="addRow()"><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    class="bi bi-plus-circle"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path
+                                      d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                                    />
+                                    <path
+                                      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+                                    />
+                                  </svg></button>`
+                         : `<button type="button" class="btn btn-sm" onclick="this.closest('tr').remove()"><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    class="bi bi-trash"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path
+                                      d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                                    />
+                                  </svg></button>`
+                     }
+      </td>
+             `;
+          modalStepBody.appendChild(newRow);
+        });
+
+        document.getElementById("addBtn").classList.add("d-none");
+        document.getElementById("updateBtn").classList.remove("d-none");
+        document.getElementById("modalTitle").innerText = "Update Action Plan";
+        const modal = new bootstrap.Modal(
+          document.getElementById("actionPlanningModal"),
+        );
+        modal.show();
+      }
+
+      function updateActionPlan() {
+        if (!editRowGroup) return;
+
+        const rowSpanCount =
+          parseInt(editRowGroup.cells[0].getAttribute("rowspan")) || 1;
+        const summaryBody = document.getElementById("summaryTableBody");
+        const allRows = Array.from(summaryBody.querySelectorAll("tr"));
+        const startIndex = allRows.indexOf(editRowGroup);
+
+        const dim = document.getElementById("modalDimension").value;
+        const item = document.getElementById("modalItem").value;
+        const score = document.getElementById("modalScore").value;
+        const goal = document.getElementById("modalGoal").value;
+        const outcome = document.getElementById("modalOutcome").value;
+        const stepRows = document.querySelectorAll("#actionStepBody tr");
+        const newCount = stepRows.length;
+
+        for (let i = 0; i < rowSpanCount; i++) {
+          summaryBody.deleteRow(startIndex);
+        }
+
+        stepRows.forEach((row, index) => {
+          const inputs = row.querySelectorAll("input");
+          const tr = summaryBody.insertRow(startIndex + index);
+          let mainCols = "";
+          if (index === 0) {
+            mainCols = `
+      <td rowspan="${newCount}">${dim}</td>
+      <td rowspan="${newCount}">${item}</td>
+      <td rowspan="${newCount}">${score}</td>
+      <td rowspan="${newCount}">${outcome}</td>
+      <td rowspan="${newCount}">${goal}</td>
+                 `;
+            tr.innerHTML = `
+                     ${mainCols}
+      <td>${inputs[0].value}</td>
+      <td>${inputs[1].value}</td>
+      <td>${inputs[2].value}</td>
+      <td>${inputs[3].value}</td>
+      <td rowspan="${newCount}" class="text-center">
+      <span class="p-1 table-action-btn" onclick="editActionPlan(this)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 １-.5-.5V１１h-.５a.５.５ ０ ０ １-.468-.32５"/>
+      </svg></span>
+      <span class="p-1 table-action-btn" onclick="deleteRowGroup(this)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+      </svg></span>
+      </td>
+                 `;
+          } else {
+            tr.innerHTML = `
+      <td>${inputs[0].value}</td>
+      <td>${inputs[1].value}</td>
+      <td>${inputs[2].value}</td>
+      <td>${inputs[3].value}</td>
+                 `;
+          }
+        });
+        bootstrap.Modal.getInstance(
+          document.getElementById("actionPlanningModal"),
+        ).hide();
+        resetModalState();
+      }
+
+      function resetModalState() {
+        document.getElementById("planForm").reset();
+        document.getElementById("modalItem").value = "";
+        const radios = document.querySelectorAll("input[name='mcaresItem']");
+        radios.forEach((radio) => (radio.checked = false));
+        document.getElementById("mcaresItemsBody").innerHTML =
+          '<tr><td colspan="3" class="text-center text-muted small">Select a dimension first</td></tr>';
+        document.getElementById("addBtn").classList.remove("d-none");
+        document.getElementById("updateBtn").classList.add("d-none");
+        document.getElementById("modalTitle").innerText = "Action Planning";
+        document
+          .getElementById("proceedToOverlayBtn")
+          .classList.add("disabled");
+        document.getElementById("proceedToOverlayBtn").style.cursor =
+          "not-allowed";
+        editRowGroup = null;
+        closeAISuggestionsOverlay();
+      }
+
+      function submitSurvey() {
+        const myModal = new bootstrap.Modal(
+          document.getElementById("submitConfirmModal"),
+        );
+        myModal.show();
+      }
+
+      function deleteRowGroup(button) {
+        if (!confirm("Delete this entire action goal?")) return;
+        const row = button.closest("tr");
+        const rowSpanCount =
+          parseInt(row.cells[0].getAttribute("rowspan")) || 1;
+        const summaryBody = document.getElementById("summaryTableBody");
+        const startIndex = Array.from(
+          summaryBody.querySelectorAll("tr"),
+        ).indexOf(row);
+        for (let i = 0; i < rowSpanCount; i++) {
+          summaryBody.deleteRow(startIndex);
+        }
+      }
+
+      function executeFinalSubmit() {
+        const modalElement = document.getElementById("submitConfirmModal");
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
+        const toastElement = document.getElementById("successToast");
+        const toast = new bootstrap.Toast(toastElement, {
+          delay: 3000,
+        });
+        toast.show();
+
+        setTimeout(() => {
+          window.location.href = "action_planning.html";
+        }, 3000);
+      }
+
+      function toggleAIChat() {
+        const chat = document.getElementById("aiChatWindow");
+        if (chat) chat.classList.toggle("d-none");
+      }
+
+      const modalContent = document.querySelector(".modal-content");
+      if (modalContent) {
+        modalContent.addEventListener("click", function (event) {
+          const overlays = [
+            "goalSuggestionOverlay",
+            "stepsSuggestionOverlay",
+            "responsibilitySuggestionOverlay",
+            "outcomeSuggestionOverlay",
+          ];
+
+          let clickedOnOverlay = false;
+          for (let overlayId of overlays) {
+            const overlay = document.getElementById(overlayId);
+            if (overlay && overlay.contains(event.target)) {
+              clickedOnOverlay = true;
+              break;
+            }
+          }
+
+          const isAIIcon = event.target.closest('[onclick*="toggleAISideDiv"]');
+
+          if (!clickedOnOverlay && !isAIIcon) {
+            overlays.forEach((overlayId) => {
+              const overlay = document.getElementById(overlayId);
+              if (overlay) {
+                overlay.classList.add("hidden");
+                overlay.style.display = "none";
+              }
+            });
+          }
+        });
+      }
+
+      const aiChatToggle = document.getElementById("aiChatToggle");
+      if (aiChatToggle) {
+        aiChatToggle.addEventListener("click", toggleAIChat);
+      }
+    </script>
+  </body>
+</html>
